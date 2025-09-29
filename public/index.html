@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>אתרים</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main class="container">
+    <h1>רשימת אתרים</h1>
+
+    <div id="status" class="status">טוען…</div>
+
+    <table id="sitesTable" class="table" hidden>
+      <thead>
+        <tr>
+          <th>תמונה</th>
+          <th>שם</th>
+          <th>כתובת</th>
+          <th>פעולות</th>
+        </tr>
+      </thead>
+      <tbody id="sitesTbody"></tbody>
+    </table>
+    <!-- ... הכותרות והטבלה כמו שיש לך ... -->
+
+    <section id="editSection" class="card" hidden>
+      <h2>עריכת אתר</h2>
+      <form id="editForm">
+        <input type="hidden" id="editId" />
+
+        <label>
+          שם
+          <input id="editName" type="text" required minlength="2" />
+        </label>
+
+        <label>
+          כתובת (URL)
+          <input id="editUrl" type="url" required minlength="5" maxlength="200" />
+        </label>
+
+        <label>
+          תמונה (URL)
+          <input id="editImage" type="url" required minlength="5" maxlength="300" />
+        </label>
+
+        <label>
+          ציון (0–10)
+          <input id="editScore" type="number" min="0" max="10" step="1" required />
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" class="btn">שמור</button>
+          <button type="button" class="btn btn--ghost" id="cancelEdit">ביטול</button>
+        </div>
+      </form>
+    </section>
+
+    <script src="script.js" defer></script>
+
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+
+</html>

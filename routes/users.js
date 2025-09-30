@@ -2,7 +2,8 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const { UserModel, validUser, validLogin, createToken } = require('../models/userModel');
 const jwt = require('jsonwebtoken');
-const { auth } = require('../middlewares/auth');
+const { auth,authAdmin } = require('../middlewares/auth');
+
 
 const router = express.Router();
 
@@ -60,7 +61,7 @@ router.post("/login", async (req, res) => {
         }
 
         // יוצר טוקן למשתמש שהתחבר בהצלחה
-        let newToken = createToken(user._id);
+        let newToken = createToken(user._id,user.role);
         res.json({ token: newToken });
     }
     catch (err) {
@@ -91,6 +92,16 @@ router.get("/myInfo", auth, async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({ msg: "err", err });
+  }
+});
+
+router.get('/usersList', authAdmin, async (req, res) => {
+  try {
+    const data = await UserModel.find({}, { password: 0 });
+    res.json(data);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: 'err', err });
   }
 });
 

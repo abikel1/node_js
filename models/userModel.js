@@ -10,14 +10,23 @@ let userSchema = new mongoose.Schema({
     date_created: {
         type: Date,
         default: Date.now()
+    },
+    role: {
+        type: String,
+        default: 'user'
     }
 });
 
 
-exports.createToken = (user_id) => {
-    let token = jwt.sign({ _id }, config.tokenSecret, { expiresIn: "60min" });
-    return token;
+// models/userModel.js
+exports.createToken = (user_id, role) => {
+    return jwt.sign(
+        { id: user_id, role},
+        config.tokenSecret,
+        { expiresIn: '60min' }
+    );
 };
+
 
 exports.validUser = (_reqBody) => {
     let joiSchema = Joi.object({

@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const {config}= require("../config/secret")
 
 exports.auth = async (req, res, next) => {
     let token = req.header('x-api-key');
@@ -8,7 +9,7 @@ exports.auth = async (req, res, next) => {
             .json({ msg: 'You need to send token to this endpoint url 66666' });
     }
     try {
-        let tokenData = jwt.verify(token, 'AyalaSecret');
+        let tokenData = jwt.verify(token, config.tokenSecret);
         req.tokenData = tokenData;
         next(); 
     } catch (err) {
